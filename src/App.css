@@ -1,0 +1,30 @@
+
+.header-container {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+    url('./assets/Header.jpg');
+  
+  background-size: cover;
+  background-position: center;
+  padding: 2rem 1rem;
+}
+
+.card-body ul {
+  padding-left: 10px; 
+}
+
+.card-body li {
+  list-style-type: none; 
+  margin-bottom: 5px;
+}
+
+.card-body {
+  padding: 0.5rem 1rem; 
+}
+
+.card-footer {
+  padding: 0.5rem 1rem; 
+}
+
+html, body, #root {
+  height: 100%;
+}
