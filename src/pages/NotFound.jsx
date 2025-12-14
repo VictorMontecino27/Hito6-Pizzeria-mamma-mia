@@ -10,7 +10,6 @@ const NotFound = () => {
         </p>
         <hr className="my-4" />
         <p>No te preocupes, puedes volver a nuestra página principal y pedir una rica pizza.</p>
-        {/* Enlace que redirige a la ruta "/" */}
         <Link to="/" className="btn btn-primary btn-lg">
           🏠 Volver al Inicio
         </Link>

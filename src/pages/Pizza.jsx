@@ -1,78 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 const Pizza = () => {
   const [pizza, setPizza] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  
-
-  const PIZZA_ID_FIJA = "P001"; 
-  const API_URL = `http://localhost:5000/api/pizzas/${PIZZA_ID_FIJA}`;
-
+  const { id } = useParams();
 
   useEffect(() => {
-
-    const fetchPizza = async () => {
+    const getPizza = async () => {
       try {
-        const response = await fetch(API_URL);
-        
-
-        if (!response.ok) {
-          throw new Error(`Error HTTP: ${response.status}`);
-        }
-        
-        const data = await response.json();
+        const res = await fetch(`http://localhost:5000/api/pizzas/${id}`);
+        const data = await res.json();
         setPizza(data);
-        setError(null);
-      } catch (err) {
-        console.error("Error al obtener la pizza:", err);
-
-        setError("Error al cargar los detalles de la pizza. Asegúrate de que el backend esté levantado en el puerto 5000.");
-      } finally {
-        setLoading(false);
+      } catch (error) {
+        console.error("Error:", error);
       }
     };
+    getPizza();
+  }, [id]);
 
-    fetchPizza();
-  }, [API_URL]); 
-
-  const formatearPrecio = (valor) => valor.toLocaleString('es-CL');
-
-  if (loading) return <div className="container mt-5"><p>Cargando detalles de la pizza...</p></div>;
-  if (error) return <div className="container mt-5"><p className="text-danger">{error}</p></div>;
-  if (!pizza) return <div className="container mt-5"><p>Pizza no encontrada.</p></div>;
+  if (!pizza) return <div className="text-center mt-5">Cargando...</div>;
 
   return (
     <div className="container mt-5">
-      <div className="row">
-        <div className="col-md-6">
-          <img src={pizza.img} className="img-fluid rounded shadow" alt={`Pizza ${pizza.name}`} />
-        </div>
-        <div className="col-md-6">
-          <h1 className="text-capitalize fw-bold">{pizza.name}</h1>
-          <p className="lead mt-3">{pizza.desc}</p>
-          <hr />
-          
-          <p className="mb-2"><b>Ingredientes:</b></p>
-          <ul className="list-unstyled">
-            {pizza.ingredients.map((ingrediente, index) => (
-              <li key={index} className="text-capitalize">
-                🍕 {ingrediente}
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-4">
-            <h2 className="text-danger">Precio: ${formatearPrecio(pizza.price)}</h2> 
+      <div className="card mb-3">
+        <div className="row g-0">
+          <div className="col-md-4">
+            <img src={pizza.img} className="img-fluid rounded-start" alt={pizza.name} />
           </div>
-
-          <div className="mt-4">
-            <button className="btn btn-danger btn-lg me-2">
-              Añadir al Carrito
-            </button>
-            
-            <Link to="/" className="btn btn-info btn-lg">Volver al Menú</Link>
+          <div className="col-md-8">
+            <div className="card-body">
+              <h5 className="card-title text-capitalize">{pizza.name}</h5>
+              <p className="card-text">{pizza.desc}</p>
+              <ul>
+                {pizza.ingredients?.map((i) => (
+                  <li key={i}>🍕 {i}</li>
+                ))}
+              </ul>
+              <div className="d-flex justify-content-between">
+                <h4>Precio: ${pizza.price}</h4>
+                <button className="btn btn-dark">Añadir 🛒</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

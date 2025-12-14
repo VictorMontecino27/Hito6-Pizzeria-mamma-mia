@@ -47,7 +47,6 @@ const Home = () => {
         name: "cuatro quesos",
         price: 7200,
         ingredients: ["mozzarella", "gorgonzola", "fontina", "parmesano"],
-        // NUEVA IMAGEN: Formato horizontal, encuadre perfecto 🧀
         img: "https://images.unsplash.com/photo-1589187151053-5ec8818e661b?q=80&w=640&auto=format&fit=crop"
       }
     ];

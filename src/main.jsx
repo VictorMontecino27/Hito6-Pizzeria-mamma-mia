@@ -1,16 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
-// 👇 AGREGA ESTA LÍNEA OBLIGATORIAMENTE PARA QUE SE VEA BONITO
-import 'bootstrap/dist/css/bootstrap.min.css'; 
-// 👇 Importa el BrowserRouter aquí
-import { BrowserRouter } from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.min.css' // <--- ¡ESTA ES LA LÍNEA MÁGICA QUE FALTABA!
 import './index.css'
+import { BrowserRouter } from 'react-router-dom'
+import CartProvider from './context/CartContext.jsx'
+import UserProvider from './context/UserContext.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <UserProvider>
+        <CartProvider>
+          <App />
+        </CartProvider>
+      </UserProvider>
     </BrowserRouter>
   </React.StrictMode>,
 )
