@@ -21,7 +21,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           
-          {/* Si ya hay token, no dejamos entrar a login/register y mandamos a home */}
           <Route 
             path="/register" 
             element={token ? <Navigate to="/" /> : <Register />} 
@@ -34,7 +33,6 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/pizza/:id" element={<Pizza />} />
           
-          {/* Ruta protegida: Si NO hay token, mandamos a login */}
           <Route 
             path="/profile" 
             element={token ? <Profile /> : <Navigate to="/login" />} 
